@@ -11,13 +11,6 @@ int main() {
     {
         std::cout << "$ ";
         std::getline(std::cin, input);
-        if(input == "exit 0")
-        {
-            std::cout << "$ " << input << std::endl;
-        }
-        else
-        {
-            std::cout << input << ": command not found" << std::endl;
-        }
+        std::cout << input << ": command not found" << std::endl;
     }
 }
