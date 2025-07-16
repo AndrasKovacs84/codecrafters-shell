@@ -6,11 +6,18 @@ int main() {
     std::cout << std::unitbuf;
     std::cerr << std::unitbuf;
 
-    while(true)
+    std::string input = "";
+    while(input != "exit 0")
     {
         std::cout << "$ ";
-        std::string input;
         std::getline(std::cin, input);
-        std::cout << input << ": command not found" << std::endl;
+        if(input == "exit 0")
+        {
+            std::cout << input << std::endl;
+        }
+        else
+        {
+            std::cout << input << ": command not found" << std::endl;
+        }
     }
 }
