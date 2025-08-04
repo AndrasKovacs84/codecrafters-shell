@@ -26,15 +26,15 @@ bool DelegateCommand(std::string_view cmd)
     }
     else
     {
-        std::cout << cmd << ": command not found";
+        std::cout << cmd << ": command not found" << std::endl;
         return true;
     }
 }
 
 bool Echo(std::string_view cmd)
 {
-    cmd.remove_prefix(sizeof("echo")+1);
-    std::cout << cmd;
+    cmd.remove_prefix(sizeof("echo"));
+    std::cout << cmd << std::endl;
     return true;
 }
 

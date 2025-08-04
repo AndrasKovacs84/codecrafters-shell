@@ -6,7 +6,7 @@
 
 int Shell::run()
 {
-    while(!m_shouldContinue)
+    while(m_shouldContinue)
     {
         std::cout << "$ ";
         std::string input;
