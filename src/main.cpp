@@ -1,7 +1,8 @@
-#include <iostream>
 #include "shell.hpp"
+#include <iostream>
 
-int main() {
+auto main() -> int
+{
     // Flush after every std::cout / std:cerr
     std::cout << std::unitbuf;
     std::cerr << std::unitbuf;

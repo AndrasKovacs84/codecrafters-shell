@@ -3,7 +3,8 @@
 class Shell
 {
 public:
-    int run();
+    auto run() -> int;
+
 private:
     bool m_shouldContinue = true;
 };
