@@ -42,10 +42,13 @@ public:
 
 private:
     std::string m_Command;
-    inline static RegisterCommand reg{
-        "exit",
-        [](std::string_view cmd)
-        { return std::make_unique<ExitCommand>(cmd); }};
+
+    static auto Create(std::string_view cmd) -> std::unique_ptr<ICommand>
+    {
+        return std::make_unique<ExitCommand>(cmd);
+    }
+
+    inline static RegisterCommand reg{"exit", &ExitCommand::Create};
 };
 
 class EchoCommand : public ICommand
@@ -57,6 +60,13 @@ public:
 
 private:
     std::string m_Command;
+
+    static auto Create(std::string_view cmd) -> std::unique_ptr<ICommand>
+    {
+        return std::make_unique<EchoCommand>(cmd);
+    }
+
+    inline static RegisterCommand reg{"echo", &EchoCommand::Create};
 };
 
 auto Parse(std::string_view) -> bool;
