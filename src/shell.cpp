@@ -16,6 +16,10 @@ auto Shell::run() -> int
         {
             m_shouldContinue = cmd.value()->Execute();
         }
+        else
+        {
+            std::cout << input << ": command not found\n";
+        }
     }
     return 0;
 }
