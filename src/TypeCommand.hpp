@@ -4,10 +4,10 @@
 #include "RegisterCommand.hpp"
 #include <memory>
 
-class ExitCommand : public ICommand
+class TypeCommand : public ICommand
 {
 public:
-    ExitCommand(std::string_view cmd);
+    TypeCommand(std::string_view cmd);
     void ParseArgs() override;
     auto Execute() -> bool override;
 
@@ -16,8 +16,8 @@ private:
 
     static auto Create(std::string_view cmd) -> std::unique_ptr<ICommand>
     {
-        return std::make_unique<ExitCommand>(cmd);
+        return std::make_unique<TypeCommand>(cmd);
     }
 
-    inline static RegisterCommand reg{"exit", &ExitCommand::Create};
+    inline static RegisterCommand reg{"type", &TypeCommand::Create};
 };

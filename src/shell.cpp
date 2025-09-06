@@ -1,6 +1,5 @@
 #include "shell.hpp"
 
-// #include "builtins.hpp"
 #include "CommandRegistry.hpp"
 #include <iostream>
 #include <string>
@@ -12,10 +11,6 @@ auto Shell::run() -> int
         std::cout << "$ ";
         std::string input;
         std::getline(std::cin, input);
-        // if (!Parse(input))
-        // {
-        //     m_shouldContinue = false;
-        // }
         auto cmd = CommandRegistry::GetCommand(input);
         if (cmd)
         {

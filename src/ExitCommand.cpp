@@ -4,7 +4,7 @@ ExitCommand::ExitCommand(std::string_view cmd)
     : m_Command(cmd)
 {}
 
-void ExitCommand::ParseArgs(const std::vector<std::string>& args)
+void ExitCommand::ParseArgs()
 {}
 
 auto ExitCommand::Execute() -> bool

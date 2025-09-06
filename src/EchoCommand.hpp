@@ -8,7 +8,7 @@ class EchoCommand : public ICommand
 {
 public:
     EchoCommand(std::string_view cmd);
-    void ParseArgs(const std::vector<std::string>& args) override;
+    void ParseArgs() override;
     auto Execute() -> bool override;
 
 private:
