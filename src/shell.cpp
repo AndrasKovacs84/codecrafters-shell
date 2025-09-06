@@ -1,19 +1,25 @@
 #include "shell.hpp"
 
-#include "builtins.hpp"
+// #include "builtins.hpp"
+#include "CommandRegistry.hpp"
 #include <iostream>
 #include <string>
 
-int Shell::run()
+auto Shell::run() -> int
 {
     while (m_shouldContinue)
     {
         std::cout << "$ ";
         std::string input;
         std::getline(std::cin, input);
-        if (!Parse(input))
+        // if (!Parse(input))
+        // {
+        //     m_shouldContinue = false;
+        // }
+        auto cmd = CommandRegistry::GetCommand(input);
+        if (cmd)
         {
-            m_shouldContinue = false;
+            m_shouldContinue = cmd.value()->Execute();
         }
     }
     return 0;

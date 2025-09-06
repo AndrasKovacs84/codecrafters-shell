@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CommandFactory.hpp"
+#include "CommandRegistry.hpp"
 #include <iostream>
 
 struct RegisterCommand
