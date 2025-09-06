@@ -1,4 +1,5 @@
 #include "builtins.hpp"
+#include "CommandRegistry.hpp"
 #include <functional>
 #include <memory>
 #include <unordered_map>
@@ -20,36 +21,4 @@ auto DelegateCommand(std::string_view cmd) -> bool
     }
     std::cout << cmd << ": command not found" << '\n';
     return true;
-}
-
-auto Echo(std::string_view cmd) -> bool
-{
-    cmd.remove_prefix(sizeof("echo"));
-    std::cout << cmd << '\n';
-    return true;
-}
-
-EchoCommand::EchoCommand(std::string_view cmd)
-    : m_Command(cmd)
-{}
-
-void EchoCommand::ParseArgs(const std::vector<std::string>& args)
-{}
-
-auto EchoCommand::Execute() -> bool
-{
-    std::cout << m_Command.substr(sizeof("echo")) << "\n";
-    return true;
-}
-
-ExitCommand::ExitCommand(std::string_view cmd)
-    : m_Command(cmd)
-{}
-
-void ExitCommand::ParseArgs(const std::vector<std::string>& args)
-{}
-
-auto ExitCommand::Execute() -> bool
-{
-    return false;
 }
