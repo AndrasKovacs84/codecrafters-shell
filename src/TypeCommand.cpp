@@ -39,6 +39,24 @@ auto TypeCommand::Execute() -> bool
         std::cout << it->first << " is a shell builtin\n";
         return true;
     }
+
+    auto path = GetEnv("PATH");
+    if (path)
+    {
+        for (auto&& entry : path.value() | std::views::split(sep))
+        {
+        }
+    }
+
     std::cout << tokens[1] << ": not found\n";
     return true;
+}
+
+auto TypeCommand::GetEnv(std::string_view var) -> std::optional<std::string>
+{
+    if (const char* val = std::getenv(var.data()))
+    {
+        return std::string(val);
+    }
+    return std::nullopt;
 }
