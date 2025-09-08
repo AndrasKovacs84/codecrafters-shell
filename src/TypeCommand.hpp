@@ -20,8 +20,6 @@ private:
     static constexpr char sep = ':';
 #endif
 
-    auto GetEnv(std::string_view var) -> std::optional<std::string>;
-
     static auto Create(std::string_view cmd) -> std::unique_ptr<ICommand>
     {
         return std::make_unique<TypeCommand>(cmd);

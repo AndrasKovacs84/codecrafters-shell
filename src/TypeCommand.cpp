@@ -1,6 +1,7 @@
 #include "TypeCommand.hpp"
+#include "shell.hpp"
 
-#include <iostream>
+#include <filesystem>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -40,23 +41,23 @@ auto TypeCommand::Execute() -> bool
         return true;
     }
 
-    auto path = GetEnv("PATH");
+    auto path = Shell::GetEnv("PATH");
     if (path)
     {
         for (auto&& entry : path.value() | std::views::split(sep))
         {
+            std::string_view path_to_check(&*entry.begin(),
+                                           std::ranges::distance(entry));
+            if (Shell::SearchOnPath(tokens[1], path_to_check))
+            {
+                std::cout << tokens[1] << " is " << path_to_check
+                          << std::filesystem::path::preferred_separator
+                          << tokens[1] << "\n";
+                return true;
+            }
         }
     }
 
     std::cout << tokens[1] << ": not found\n";
     return true;
-}
-
-auto TypeCommand::GetEnv(std::string_view var) -> std::optional<std::string>
-{
-    if (const char* val = std::getenv(var.data()))
-    {
-        return std::string(val);
-    }
-    return std::nullopt;
 }
