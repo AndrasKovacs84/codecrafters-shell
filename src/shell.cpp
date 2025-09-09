@@ -54,3 +54,10 @@ auto Shell::SearchOnPath(std::string_view entry, std::string_view path) -> bool
             std::filesystem::perms::none);
 #endif
 }
+
+auto Shell::GetExecutablePath(std::string_view bin)
+    -> std::optional<std::filesystem::path>
+{
+    // TODO placeholder
+    return std::nullopt;
+}

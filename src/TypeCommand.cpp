@@ -34,10 +34,9 @@ auto TypeCommand::Execute() -> bool
         return true;
     }
 
-    auto it = CommandRegistry::Get().find(tokens[1]);
-    if (it != CommandRegistry::Get().end())
+    if (CommandRegistry::IsBuiltin(tokens[1]))
     {
-        std::cout << it->first << " is a shell builtin\n";
+        std::cout << tokens[1] << " is a shell builtin\n";
         return true;
     }
 
