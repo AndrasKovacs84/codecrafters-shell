@@ -19,8 +19,7 @@ auto TypeCommand::Execute() -> bool
     std::vector<std::string> tokens;
     for (auto&& word : m_Command | std::views::split(' '))
     {
-        tokens.emplace_back(
-            std::string_view(&*word.begin(), std::ranges::distance(word)));
+        tokens.emplace_back(std::string_view(&*word.begin(), std::ranges::distance(word)));
     }
 
     if (tokens.size() > 2)
@@ -45,13 +44,11 @@ auto TypeCommand::Execute() -> bool
     {
         for (auto&& entry : path.value() | std::views::split(sep))
         {
-            std::string_view path_to_check(&*entry.begin(),
-                                           std::ranges::distance(entry));
-            if (Shell::SearchOnPath(tokens[1], path_to_check))
+            std::string_view path_to_check(&*entry.begin(), std::ranges::distance(entry));
+            std::optional<std::filesystem::path> bin_path = Shell::SearchOnPath(tokens[1], path_to_check);
+            if (bin_path.has_value())
             {
-                std::cout << tokens[1] << " is " << path_to_check
-                          << std::filesystem::path::preferred_separator
-                          << tokens[1] << "\n";
+                std::cout << tokens[1] << " is " << bin_path.value().native() << "\n";
                 return true;
             }
         }

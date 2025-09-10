@@ -34,25 +34,29 @@ auto Shell::GetEnv(std::string_view var) -> std::optional<std::string>
     return std::nullopt;
 }
 
-auto Shell::SearchOnPath(std::string_view entry, std::string_view path) -> bool
+auto Shell::SearchOnPath(std::string_view entry, std::string_view path)
+    -> std::optional<std::filesystem::path>
 {
     std::filesystem::path dir = path;
     auto candidate = dir / entry;
 #ifdef _WIN32
     if (std::filesystem::exists(candidate))
     {
-        return true;
+        return std::optional<std::filesystem::path>{candidate};
     }
     if (std::filesystem::exists(candidate.string() + ".exe"))
     {
-        return true;
+        return std::optional<std::filesystem::path>{candidate};
     }
 #else
-    return (std::filesystem::exists(candidate) &&
-            (std::filesystem::status(candidate).permissions() &
-             std::filesystem::perms::owner_exec) !=
-            std::filesystem::perms::none);
+    if (std::filesystem::exists(candidate) &&
+        (std::filesystem::status(candidate).permissions() &
+         std::filesystem::perms::owner_exec) != std::filesystem::perms::none)
+    {
+        return std::optional<std::filesystem::path>{candidate};
+    }
 #endif
+    return std::nullopt;
 }
 
 auto Shell::GetExecutablePath(std::string_view bin)
