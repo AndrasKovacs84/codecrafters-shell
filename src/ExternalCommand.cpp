@@ -1,4 +1,5 @@
 #include "ExternalCommand.hpp"
+#include <iostream>
 #include <ranges>
 #include <utility>
 
@@ -32,17 +33,13 @@ auto ExternalCommand::Execute() -> bool
         result.emplace_back(token.begin(), token.end());
     }
     // TODO return actual code...
-    return !static_cast<bool>(
-        runCommand(m_BinPath, result[0], std::vector<std::string>{result.begin() + 1, result.end()}));
+    return !static_cast<bool>(runCommand(m_BinPath / result[0], result));
 }
 
-auto ExternalCommand::runCommand(const std::filesystem::path& resolvedPath,
-                                 const std::string& bin,
-                                 const std::vector<std::string>& args) -> int
+auto ExternalCommand::runCommand(const std::filesystem::path& resolvedPath, const std::vector<std::string>& args) -> int
 {
     std::vector<char*> argv;
-    argv.reserve(args.size() + 2);
-    argv.push_back(const_cast<char*>(bin.c_str()));
+    argv.reserve(args.size() + 1);
     for (const auto& arg : args)
     {
         argv.push_back(const_cast<char*>(arg.c_str()));
@@ -56,7 +53,7 @@ auto ExternalCommand::runCommand(const std::filesystem::path& resolvedPath,
     pid_t pid = fork();
     if (pid == 0)
     {
-        execv(resolvedPath.c_str(), argv.data());
+        execv(resolvedPath.native().c_str(), argv.data());
         _exit(shell::EXIT_EXEC_FAILURE);
     }
     else if (pid > 0)

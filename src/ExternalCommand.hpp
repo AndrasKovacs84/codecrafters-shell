@@ -12,9 +12,7 @@ public:
     auto Execute() -> bool override;
 
 private:
-    static auto runCommand(const std::filesystem::path& resolvedPath,
-                           const std::string& bin,
-                           const std::vector<std::string>& args) -> int;
+    static auto runCommand(const std::filesystem::path& resolvedPath, const std::vector<std::string>& args) -> int;
     std::string m_Command;
     std::filesystem::path m_BinPath;
 };
