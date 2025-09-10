@@ -12,6 +12,12 @@ public:
     static auto SearchOnPath(std::string_view entry, std::string_view path) -> std::optional<std::filesystem::path>;
     static auto GetExecutablePath(std::string_view bin) -> std::optional<std::filesystem::path>;
 
+#ifdef _WIN32
+    static constexpr char sep = ';';
+#else
+    static constexpr char sep = ':';
+#endif
+
 private:
     bool m_shouldContinue = true;
 };

@@ -14,12 +14,6 @@ public:
 private:
     std::string m_Command;
 
-#ifdef _WIN32
-    static constexpr char sep = ';';
-#else
-    static constexpr char sep = ':';
-#endif
-
     static auto Create(std::string_view cmd) -> std::unique_ptr<ICommand>
     {
         return std::make_unique<TypeCommand>(cmd);

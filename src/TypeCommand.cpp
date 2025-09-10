@@ -42,7 +42,7 @@ auto TypeCommand::Execute() -> bool
     auto path = Shell::GetEnv("PATH");
     if (path)
     {
-        for (auto&& entry : path.value() | std::views::split(sep))
+        for (auto&& entry : path.value() | std::views::split(Shell::sep))
         {
             std::string_view path_to_check(&*entry.begin(), std::ranges::distance(entry));
             std::optional<std::filesystem::path> bin_path = Shell::SearchOnPath(tokens[1], path_to_check);
