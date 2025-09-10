@@ -33,10 +33,12 @@ auto ExternalCommand::Execute() -> bool
     }
     // TODO return actual code...
     return !static_cast<bool>(
-        runCommand((m_BinPath / result[0]).native(), std::vector<std::string>{result.begin() + 1, result.end()}));
+        runCommand(m_BinPath, result[0], std::vector<std::string>{result.begin() + 1, result.end()}));
 }
 
-auto ExternalCommand::runCommand(const std::string& bin, const std::vector<std::string>& args) -> int
+auto ExternalCommand::runCommand(const std::filesystem::path& resolvedPath,
+                                 const std::string& bin,
+                                 const std::vector<std::string>& args) -> int
 {
     std::vector<char*> argv;
     argv.reserve(args.size() + 2);
@@ -54,7 +56,7 @@ auto ExternalCommand::runCommand(const std::string& bin, const std::vector<std::
     pid_t pid = fork();
     if (pid == 0)
     {
-        execv(bin.c_str(), argv.data());
+        execv(resolvedPath.c_str(), argv.data());
         _exit(shell::EXIT_EXEC_FAILURE);
     }
     else if (pid > 0)
