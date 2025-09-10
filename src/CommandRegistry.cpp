@@ -1,4 +1,5 @@
 #include "CommandRegistry.hpp"
+#include "ExternalCommand.hpp"
 #include "shell.hpp"
 #include <filesystem>
 #include <string>
@@ -21,6 +22,8 @@ auto CommandRegistry::GetCommand(std::string_view cmd) -> std::optional<std::uni
     std::optional<std::filesystem::path> bin_path = Shell::GetExecutablePath(cmd.substr(0, pos));
     if (bin_path.has_value())
     {
+        return std::optional<std::unique_ptr<ExternalCommand>>{
+            std::make_unique<ExternalCommand>(cmd, bin_path.value())};
     }
     return std::nullopt;
 }

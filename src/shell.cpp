@@ -14,11 +14,14 @@ auto Shell::run() -> int
         std::string input;
         std::getline(std::cin, input);
         auto cmd = CommandRegistry::GetCommand(input);
-        if (cmd)
+        if (cmd.has_value())
         {
             m_shouldContinue = cmd.value()->Execute();
         }
-        std::cout << input << ": command not found\n";
+        else
+        {
+            std::cout << input << ": command not found\n";
+        }
     }
     return 0;
 }
@@ -39,18 +42,18 @@ auto Shell::SearchOnPath(std::string_view entry, std::string_view path) -> std::
 #ifdef _WIN32
     if (std::filesystem::exists(candidate))
     {
-        return std::optional<std::filesystem::path>{candidate};
+        return std::optional<std::filesystem::path>{dir};
     }
     if (std::filesystem::exists(candidate.string() + ".exe"))
     {
-        return std::optional<std::filesystem::path>{candidate};
+        return std::optional<std::filesystem::path>{dir};
     }
 #else
     if (std::filesystem::exists(candidate) &&
         (std::filesystem::status(candidate).permissions() & std::filesystem::perms::owner_exec) !=
         std::filesystem::perms::none)
     {
-        return std::optional<std::filesystem::path>{candidate};
+        return std::optional<std::filesystem::path>{dir};
     }
 #endif
     return std::nullopt;

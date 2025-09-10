@@ -48,7 +48,8 @@ auto TypeCommand::Execute() -> bool
             std::optional<std::filesystem::path> bin_path = Shell::SearchOnPath(tokens[1], path_to_check);
             if (bin_path.has_value())
             {
-                std::cout << tokens[1] << " is " << bin_path.value().native() << "\n";
+                std::cout << tokens[1] << " is " << bin_path.value().native()
+                          << std::filesystem::path::preferred_separator << tokens[1] << "\n";
                 return true;
             }
         }
