@@ -10,25 +10,13 @@ if (CMAKE_VERSION VERSION_LESS 3.30)
     set(CMAKE_EXPERIMENTAL_CXX_MODULES ON)
 endif()
 
+file(GLOB_RECURSE CORE_SRC   src/core/*.cpp src/core/*.hpp)
+file(GLOB_RECURSE BUILTIN_SRC src/builtins/*.cpp src/builtins/*.hpp)
+file(GLOB_RECURSE SHELL_SRC   src/shell/*.cpp src/shell/*.hpp)
+
 add_executable(shell
-    src/shell/main.cpp
-    src/shell/shell.cpp
-    src/shell/shell.hpp
-
-    src/core/ICommand.hpp
-    src/core/CommandRegistry.cpp
-    src/core/CommandRegistry.hpp
-    src/core/ExternalCommand.cpp
-    src/core/ExternalCommand.hpp
-    src/core/RegisterCommand.hpp
-
-    src/builtins/EchoCommand.cpp
-    src/builtins/EchoCommand.hpp
-    src/builtins/ExitCommand.cpp
-    src/builtins/ExitCommand.hpp
-    src/builtins/PwdCommand.cpp
-    src/builtins/PwdCommand.hpp
-    src/builtins/TypeCommand.cpp
-    src/builtins/TypeCommand.hpp
+    ${CORE_SRC}
+    ${BUILTIN_SRC}
+    ${SHELL_SRC}
 )
 target_link_libraries(shell PRIVATE readline)
