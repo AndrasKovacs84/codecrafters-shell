@@ -1,5 +1,5 @@
 #include "TypeCommand.hpp"
-#include "shell.hpp"
+#include "../shell/shell.hpp"
 
 #include <filesystem>
 #include <ranges>

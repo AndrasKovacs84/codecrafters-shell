@@ -11,22 +11,24 @@ if (CMAKE_VERSION VERSION_LESS 3.30)
 endif()
 
 add_executable(shell
-    src/CommandRegistry.cpp
-    src/CommandRegistry.hpp
-    src/EchoCommand.cpp
-    src/EchoCommand.hpp
-    src/ExitCommand.cpp
-    src/ExitCommand.hpp
-    src/ExternalCommand.cpp
-    src/ExternalCommand.hpp
-    src/ICommand.hpp
-    src/main.cpp
-    src/PwdCommand.cpp
-    src/PwdCommand.hpp
-    src/RegisterCommand.hpp
-    src/shell.cpp
-    src/shell.hpp
-    src/TypeCommand.cpp
-    src/TypeCommand.hpp
+    src/shell/main.cpp
+    src/shell/shell.cpp
+    src/shell/shell.hpp
+
+    src/core/ICommand.hpp
+    src/core/CommandRegistry.cpp
+    src/core/CommandRegistry.hpp
+    src/core/ExternalCommand.cpp
+    src/core/ExternalCommand.hpp
+    src/core/RegisterCommand.hpp
+
+    src/builtins/EchoCommand.cpp
+    src/builtins/EchoCommand.hpp
+    src/builtins/ExitCommand.cpp
+    src/builtins/ExitCommand.hpp
+    src/builtins/PwdCommand.cpp
+    src/builtins/PwdCommand.hpp
+    src/builtins/TypeCommand.cpp
+    src/builtins/TypeCommand.hpp
 )
 target_link_libraries(shell PRIVATE readline)

@@ -1,6 +1,6 @@
 #include "shell.hpp"
 
-#include "CommandRegistry.hpp"
+#include "../core/CommandRegistry.hpp"
 #include <filesystem>
 #include <iostream>
 #include <ranges>

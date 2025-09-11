@@ -1,6 +1,6 @@
 #include "CommandRegistry.hpp"
+#include "../shell/shell.hpp"
 #include "ExternalCommand.hpp"
-#include "shell.hpp"
 #include <filesystem>
 #include <string>
 #include <unordered_map>

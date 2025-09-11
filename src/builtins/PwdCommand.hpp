@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ICommand.hpp"
-#include "RegisterCommand.hpp"
+#include "../core/ICommand.hpp"
+#include "../core/RegisterCommand.hpp"
 
 #include <memory>
 
