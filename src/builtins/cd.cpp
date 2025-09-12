@@ -28,7 +28,7 @@ auto CdCommand::Execute() -> bool
         {
             std::forward_list<char> home_container;
             std::ranges::reverse_copy(home.value(), std::front_inserter(home_container));
-            args.replace_with_range(args.begin() + pos, args.begin() + pos + 1, home_container);
+            args.replace(args.begin() + pos, args.begin() + pos + 1, home_container.cbegin(), home_container.cend());
         }
     }
 
