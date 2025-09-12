@@ -1,4 +1,4 @@
-#include "EchoCommand.hpp"
+#include "echo.hpp"
 
 EchoCommand::EchoCommand(std::string_view cmd)
     : m_Command(cmd)

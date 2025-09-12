@@ -1,4 +1,4 @@
-#include "TypeCommand.hpp"
+#include "type.hpp"
 #include "../shell/shell.hpp"
 
 #include <filesystem>

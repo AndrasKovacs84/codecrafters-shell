@@ -1,4 +1,4 @@
-#include "ExitCommand.hpp"
+#include "exit.hpp"
 
 ExitCommand::ExitCommand(std::string_view cmd)
     : m_Command(cmd)
