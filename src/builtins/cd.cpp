@@ -18,7 +18,12 @@ auto CdCommand::Execute() -> bool
     }
     std::string_view args{m_Command.begin() + pos + 1, m_Command.end()};
 
-    std::filesystem::current_path(std::filesystem::path(args));
-
+    std::error_code ec;
+    std::filesystem::current_path(std::filesystem::path(args), ec);
+    if (ec)
+    {
+        std::cout << "cd: " << args << ": No such file or directory\n";
+        return true;
+    }
     return true;
 }
