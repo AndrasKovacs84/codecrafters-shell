@@ -28,7 +28,8 @@ auto Shell::run() -> int
 
 auto Shell::GetEnv(std::string_view var) -> std::optional<std::string>
 {
-    if (const char* val = std::getenv(var.data()))
+    std::string key{var};   // to ensure it is null terminated
+    if (const char* val = std::getenv(key.data()))
     {
         return std::optional<std::string>{val};
     }
